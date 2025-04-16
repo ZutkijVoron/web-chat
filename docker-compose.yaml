@@ -10,6 +10,8 @@ services:
     restart: always
     depends_on:
       - mongo
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017/
 
   mongo:
     image: mongo:4.4.6
@@ -22,14 +24,23 @@ services:
       - 27017:27017
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_REGISTER: http://192.168.1.212:5000/auth/register
+        REACT_APP_LOGIN: http://192.168.1.212:5000/auth/login
+        REACT_APP_CONNECT: http://192.168.1.212:5000/chat
+        REACT_APP_SENDMESSAGE: http://192.168.1.212:5000/chat
     ports:
-      - 3000:3000
+      - 80:80
     networks:
       - default
     restart: always
     depends_on:
         - app
+
+
+
 
 networks:
   default:
