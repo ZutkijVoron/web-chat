@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  app:
+    build: ./server
+    ports:
+      - 5000:5000
+    networks:
+      - default
+    restart: always
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4.4.6
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - default
+    restart: always
+    ports:
+      - 27017:27017
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    networks:
+      - default
+    restart: always
+    depends_on:
+        - app
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+
+
+
+volumes:
+  mongo_data:
+    driver: local
