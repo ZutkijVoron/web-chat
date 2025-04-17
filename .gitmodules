@@ -1,6 +1,6 @@
 [submodule "server"]
 	path = server
-	url = git@github.com:ZutkijVoron/server-web-chat.git
+	url = https://github.com/ZutkijVoron/server-web-chat.git
 [submodule "frontend"]
 	path = frontend
-	url = git@github.com:ZutkijVoron/frontend-web-chat.git
+	url = https://github.com/ZutkijVoron/frontend-web-chat.git
